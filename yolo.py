@@ -18,10 +18,12 @@ from yolo3.model import yolo_eval, yolo_body, tiny_yolo_body
 from yolo3.utils import letterbox_image
 
 class YOLO(object):
-    def __init__(self):
-        self.model_path = 'model_data/yolo.h5' # model path or trained weights path
-        self.anchors_path = 'model_data/yolo_anchors.txt'
-        self.classes_path = 'model_data/coco_classes.txt'
+    def __init__(self, model_path=os.path.abspath(os.path.join(os.path.realpath(__file__), os.pardir))+'/model_data/yolov3-tiny.h5',
+                 anchors_path=os.path.abspath(os.path.join(os.path.realpath(__file__), os.pardir))+'/model_data/tiny_yolo_anchors.txt',
+                 classes_path=os.path.abspath(os.path.join(os.path.realpath(__file__), os.pardir))+'/model_data/coco_classes.txt'):
+        self.model_path = model_path
+        self.anchors_path = anchors_path
+        self.classes_path = classes_path
         self.score = 0.3
         self.iou = 0.45
         self.class_names = self._get_class()
@@ -110,7 +112,10 @@ class YOLO(object):
 
         print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
 
-        font = ImageFont.truetype(font='font/FiraMono-Medium.otf',
+        font_dir = os.path.abspath(os.path.join(os.path.realpath(__file__), os.pardir))
+        
+        print(font_dir +  '/font/FiraMono-Medium.otf')
+        font = ImageFont.truetype(font=font_dir + '/font/FiraMono-Medium.otf',
                     size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
         thickness = (image.size[0] + image.size[1]) // 300
 
