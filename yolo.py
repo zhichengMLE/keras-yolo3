@@ -114,7 +114,6 @@ class YOLO(object):
 
         font_dir = os.path.abspath(os.path.join(os.path.realpath(__file__), os.pardir))
         
-        print(font_dir +  '/font/FiraMono-Medium.otf')
         font = ImageFont.truetype(font=font_dir + '/font/FiraMono-Medium.otf',
                     size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
         thickness = (image.size[0] + image.size[1]) // 300
